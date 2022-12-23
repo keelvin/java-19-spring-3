@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -16,4 +17,5 @@ public class Person {
     private String mail;
     private Date birthDate;
     private boolean active;
+    private List<Address> addresses;
 }

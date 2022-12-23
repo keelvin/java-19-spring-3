@@ -9,14 +9,12 @@ import br.com.kelvin.java19spring3.domain.people.exceptions.CreatePersonExceptio
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
-@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 @Getter(value = AccessLevel.PRIVATE)
 @AllArgsConstructor
 public class PersonProvider implements PersonDataProvider {
@@ -40,5 +38,10 @@ public class PersonProvider implements PersonDataProvider {
     @Override
     public Optional<Person> findById(String id) {
         return this.getPersonRepository().findById(id).map(this.getPersonEntityConverter()::toEntity);
+    }
+
+    @Override
+    public List<Person> findAll() {
+        return this.getPersonRepository().findAll().stream().map(this.getPersonEntityConverter()::toEntity).toList();
     }
 }

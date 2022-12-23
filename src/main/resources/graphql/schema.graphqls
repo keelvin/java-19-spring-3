@@ -1,0 +1,26 @@
+type Query {
+    personById(id: String): PersonRestModel
+    allPeople(count: Int): [PersonRestModel]
+}
+
+type PersonRestModel {
+    id: String
+    name: String
+    mail: String
+    phone: String
+    birthDate: String
+    active: Boolean
+    addresses: [AddressRestModel]
+}
+
+type AddressRestModel {
+    id: String
+    street: String!
+    number: String!
+    neighborhood: String
+    complement: String
+    city: String!
+    state: String!
+    country: String!
+    zipCode: String
+}

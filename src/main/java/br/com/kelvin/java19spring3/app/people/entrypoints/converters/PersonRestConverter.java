@@ -3,13 +3,18 @@ package br.com.kelvin.java19spring3.app.people.entrypoints.converters;
 import br.com.kelvin.java19spring3.app.people.entrypoints.models.PersonRestModel;
 import br.com.kelvin.java19spring3.common.RestConverter;
 import br.com.kelvin.java19spring3.domain.people.entities.Person;
-import org.springframework.beans.factory.config.ConfigurableBeanFactory;
-import org.springframework.context.annotation.Scope;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+
 @Component
-@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+@AllArgsConstructor
+@Getter
 public class PersonRestConverter implements RestConverter<Person, PersonRestModel> {
+
+    private final AddressRestConverter addressRestConverter;
     @Override
     public Person toEntity(PersonRestModel rest) {
         return new Person(
@@ -18,7 +23,8 @@ public class PersonRestConverter implements RestConverter<Person, PersonRestMode
             rest.getPhone(),
             rest.getMail(),
             rest.getBirthDate(),
-            rest.isActive()
+            rest.isActive(),
+            rest.getAddresses() == null ? new ArrayList<>() : rest.getAddresses().stream().map(addressRestConverter::toEntity).toList()
         );
     }
 
@@ -30,7 +36,8 @@ public class PersonRestConverter implements RestConverter<Person, PersonRestMode
             entity.getMail(),
             entity.getPhone(),
             entity.getBirthDate(),
-            entity.isActive()
+            entity.isActive(),
+            entity.getAddresses() == null ? new ArrayList<>() : entity.getAddresses().stream().map(addressRestConverter::toRest).toList()
         );
     }
 }

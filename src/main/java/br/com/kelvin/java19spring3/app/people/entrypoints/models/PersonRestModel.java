@@ -5,10 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 public class PersonRestModel {
+
     private String id;
     private String name;
     private String mail;
@@ -16,4 +18,6 @@ public class PersonRestModel {
     @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING, timezone = "America/Sao_Paulo")
     private Date birthDate;
     private boolean active;
+
+    private List<AddressRestModel> addresses;
 }

@@ -2,15 +2,14 @@ package br.com.kelvin.java19spring3.app.people.dataproviders.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity(name = "person")
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
@@ -27,4 +26,7 @@ public class PersonModel {
     private Date birthDate;
 
     private boolean active;
+
+    @OneToMany(mappedBy = "person")
+    private List<AddressModel> addresses;
 }
